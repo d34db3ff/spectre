@@ -1,0 +1,47 @@
+canvas {
+  display:block;
+  position: fixed;
+  z-index: -1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* fix theme errors */
+.kg-width-wide {
+  position: relative;
+  width: 85vw;
+  min-width: 100%;
+  margin: auto calc(50% - 50vw);
+  transform: translateX(calc(50vw - 50%));
+}
+
+.kg-width-full {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+header.main-header {
+  margin-bottom: 0;
+}
+
+main#content {
+  overflow: auto;
+}
+
+div#comment::before {
+    content: "";
+    display: inline-block;
+}
+
+div#comment {
+    height : 10rem;
+    position: relative;
+}
+
+#comment button {}

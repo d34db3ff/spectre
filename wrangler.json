@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "spectre",
+  "main": "src/index.ts",
+  "compatibility_flags": [ "nodejs_compat" ],
+  "compatibility_date": "2025-01-09",
+  "observability": {
+    "enabled": true
+  },
+  /**
+   * Smart Placement
+   * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+   */
+  // "placement": { "mode": "smart" },
+
+  "kv_namespaces": [{ "binding": "SETTINGS", "id": "114514" }, { "binding": "DATA", "id": "114515" }],
+  "assets": { "directory": "./public/", "experimental_serve_directly": true },
+
+  /**
+   * Environment Variables
+   * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+   */
+  // "vars": { "MY_VARIABLE": "production_value" },
+  /**
+   * Note: Use secrets to store sensitive data.
+   * https://developers.cloudflare.com/workers/configuration/secrets/
+   */
+
+}

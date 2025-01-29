@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {{! Document Settings }}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {{! Page Meta }}
+    <title>{{page.meta_title}}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="{{asset "favicon.ico"}}">
+
+    {{! Styles'n'Scripts }}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/screen.css"}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset "css/patch.css"}}" />
+
+</head>
+<body class="{{page.body_class}}">
+
+    {{> navigation}}
+    <div class="site-wrapper">
+
+    <header class="main-header post-head no-cover">
+        <nav class="main-nav {{#if feature_image}}overlay{{/if}} clearfix">
+                <label class="menu-button icon-menu" for="nav-switch"><span class="word">菜单</span></label>
+        </nav>
+    </header>
+
+    <main class="content" role="main">
+        <article class="{{post.post_class}}">
+
+            <header class="post-header">
+                <h1 class="post-title">{{post.title}}</h1>
+            </header>
+
+            <section class="post-content">
+                {{{post.html}}}
+            </section>
+
+        </article>
+    </main>
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="{{site.url}}">{{site.title}}</a> &copy; {{date format="YYYY"}}</section>
+	    <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a> &amp; Modified by Minty </br> <noscript>This website is JavaScript-Free™ </noscript></section>
+        </footer>
+
+    </div>
+
+</body>
+</html>
