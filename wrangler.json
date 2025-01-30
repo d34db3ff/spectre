@@ -2,7 +2,6 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "spectre",
   "main": "src/index.ts",
-  "compatibility_flags": [ "nodejs_compat" ],
   "compatibility_date": "2025-01-09",
   "observability": {
     "enabled": true
@@ -11,7 +10,7 @@
   "placement": { "mode": "smart" },
 
   "kv_namespaces": [{ "binding": "SETTINGS", "id": "114514" }, { "binding": "DATA", "id": "114515" }],
-  "assets": { "directory": "./public/", "experimental_serve_directly": true },
+  "assets": { "directory": "./public/" },
 
   /**
    * Environment Variables

@@ -4,8 +4,6 @@ if [ ! -d ./tmp ]; then
   mkdir ./tmp
 fi
 
-bunx wrangler kv key put posts "`cat $1 | jq -cr '.db[0].data.posts | map(select(.status == "published"))`" --binding=SETTINGS --local
-
 cat $1 | jq -cr '.db[0].data.posts | map(select(.status == "published"))[] | .slug' > tmp/keys
 cat $1 | jq -cr '.db[0].data.posts | map(select(.status == "published"))[] | {"page": {"meta_title": .title, "body_class": (if .type == "post" then "post-template" else "page-template" end)}, "post": {"post_class": "post no-image", "title": .title, "plaintext": (if .plaintext != null then .plaintext | gsub("\\n"; "") else null end), "html": (if .html == null then "" else .html | @json | ltrimstr("\"") |  rtrimstr("\"") end)}}' > ./tmp/values
 while read key <&3 && read value <&4; do

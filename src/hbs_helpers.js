@@ -19,7 +19,7 @@ export default function () {
   });
   
   Handlebars.registerHelper('excerpt', (text) => 
-    text.substring(0, 140)
+    Object.is(text, null) ? null : text.substring(0, 140)
   );
   Handlebars.registerHelper('url', (url) =>
     url.startsWith('/') ? url : "/".concat(url)

@@ -139,29 +139,27 @@ templates['post.hbs'] = template({"1":function(container,depth0,helpers,partials
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
 Handlebars.partials['loop'] = template({"1":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.escapeExpression, alias3=container.lambda, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
         return undefined
     };
 
-  return "<article class=\""
-    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"post_class") : depth0), depth0))
-    + "\">\n    <header class=\"post-header\">\n        <h2 class=\"post-title\"><a href=\""
-    + alias2(lookupProperty(helpers,"url").call(alias3,(depth0 != null ? lookupProperty(depth0,"slug") : depth0),{"name":"url","hash":{},"data":data,"loc":{"start":{"line":10,"column":40},"end":{"line":10,"column":52}}}))
+  return "<article class=\"post no-image\">\n    <header class=\"post-header\">\n        <h2 class=\"post-title\"><a href=\""
+    + alias2(lookupProperty(helpers,"url").call(alias1,(depth0 != null ? lookupProperty(depth0,"slug") : depth0),{"name":"url","hash":{},"data":data,"loc":{"start":{"line":10,"column":40},"end":{"line":10,"column":52}}}))
     + "\">"
-    + ((stack1 = alias1((depth0 != null ? lookupProperty(depth0,"title") : depth0), depth0)) != null ? stack1 : "")
+    + ((stack1 = alias3((depth0 != null ? lookupProperty(depth0,"title") : depth0), depth0)) != null ? stack1 : "")
     + "</a></h2>\n    </header>\n    <section class=\"post-excerpt\">\n        <p>"
-    + alias2(lookupProperty(helpers,"excerpt").call(alias3,(depth0 != null ? lookupProperty(depth0,"plaintext") : depth0),{"name":"excerpt","hash":{},"data":data,"loc":{"start":{"line":13,"column":11},"end":{"line":13,"column":32}}}))
+    + alias2(lookupProperty(helpers,"excerpt").call(alias1,(depth0 != null ? lookupProperty(depth0,"plaintext") : depth0),{"name":"excerpt","hash":{},"data":data,"loc":{"start":{"line":13,"column":11},"end":{"line":13,"column":32}}}))
     + " <a class=\"read-more\" href=\""
-    + alias2(lookupProperty(helpers,"url").call(alias3,(depth0 != null ? lookupProperty(depth0,"slug") : depth0),{"name":"url","hash":{},"data":data,"loc":{"start":{"line":13,"column":60},"end":{"line":13,"column":72}}}))
+    + alias2(lookupProperty(helpers,"url").call(alias1,(depth0 != null ? lookupProperty(depth0,"slug") : depth0),{"name":"url","hash":{},"data":data,"loc":{"start":{"line":13,"column":60},"end":{"line":13,"column":72}}}))
     + "\">&raquo;</a></p>\n    </section>\n    <footer class=\"post-meta\">\n        "
-    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"authors") : depth0), depth0))
+    + alias2(alias3((depth0 != null ? lookupProperty(depth0,"authors") : depth0), depth0))
     + "\n        <time class=\"post-date\" datetime=\""
-    + alias2(lookupProperty(helpers,"date").call(alias3,{"name":"date","hash":{"format":"YYYY-MM-DD"},"data":data,"loc":{"start":{"line":17,"column":42},"end":{"line":17,"column":70}}}))
+    + alias2(lookupProperty(helpers,"date").call(alias1,{"name":"date","hash":{"format":"YYYY-MM-DD"},"data":data,"loc":{"start":{"line":17,"column":42},"end":{"line":17,"column":70}}}))
     + "\">"
-    + alias2(lookupProperty(helpers,"date").call(alias3,{"name":"date","hash":{"format":"YYYY-MM-DD"},"data":data,"loc":{"start":{"line":17,"column":72},"end":{"line":17,"column":100}}}))
+    + alias2(lookupProperty(helpers,"date").call(alias1,{"name":"date","hash":{"format":"YYYY-MM-DD"},"data":data,"loc":{"start":{"line":17,"column":72},"end":{"line":17,"column":100}}}))
     + "</time>\n    </footer>\n</article>\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
