@@ -7,10 +7,10 @@
 {{#each posts}}
 <article class="{{post_class}}">
     <header class="post-header">
-        <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
+        <h2 class="post-title"><a href="{{url slug}}">{{{title}}}</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>{{excerpt characters="140"}} <a class="read-more" href="{{url}}">&raquo;</a></p>
+        <p>{{excerpt plaintext}} <a class="read-more" href="{{url slug}}">&raquo;</a></p>
     </section>
     <footer class="post-meta">
         {{authors}}

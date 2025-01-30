@@ -149,13 +149,13 @@ Handlebars.partials['loop'] = template({"1":function(container,depth0,helpers,pa
   return "<article class=\""
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"post_class") : depth0), depth0))
     + "\">\n    <header class=\"post-header\">\n        <h2 class=\"post-title\"><a href=\""
-    + alias2(lookupProperty(helpers,"url").call(alias3,{"name":"url","hash":{},"data":data,"loc":{"start":{"line":10,"column":40},"end":{"line":10,"column":47}}}))
+    + alias2(lookupProperty(helpers,"url").call(alias3,(depth0 != null ? lookupProperty(depth0,"slug") : depth0),{"name":"url","hash":{},"data":data,"loc":{"start":{"line":10,"column":40},"end":{"line":10,"column":52}}}))
     + "\">"
     + ((stack1 = alias1((depth0 != null ? lookupProperty(depth0,"title") : depth0), depth0)) != null ? stack1 : "")
     + "</a></h2>\n    </header>\n    <section class=\"post-excerpt\">\n        <p>"
-    + alias2(lookupProperty(helpers,"excerpt").call(alias3,{"name":"excerpt","hash":{"characters":"140"},"data":data,"loc":{"start":{"line":13,"column":11},"end":{"line":13,"column":39}}}))
+    + alias2(lookupProperty(helpers,"excerpt").call(alias3,(depth0 != null ? lookupProperty(depth0,"plaintext") : depth0),{"name":"excerpt","hash":{},"data":data,"loc":{"start":{"line":13,"column":11},"end":{"line":13,"column":32}}}))
     + " <a class=\"read-more\" href=\""
-    + alias2(lookupProperty(helpers,"url").call(alias3,{"name":"url","hash":{},"data":data,"loc":{"start":{"line":13,"column":67},"end":{"line":13,"column":74}}}))
+    + alias2(lookupProperty(helpers,"url").call(alias3,(depth0 != null ? lookupProperty(depth0,"slug") : depth0),{"name":"url","hash":{},"data":data,"loc":{"start":{"line":13,"column":60},"end":{"line":13,"column":72}}}))
     + "\">&raquo;</a></p>\n    </section>\n    <footer class=\"post-meta\">\n        "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"authors") : depth0), depth0))
     + "\n        <time class=\"post-date\" datetime=\""
@@ -190,7 +190,7 @@ Handlebars.partials['navigation'] = template({"1":function(container,depth0,help
   return "        <li "
     + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"current") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":9,"column":12},"end":{"line":9,"column":54}}})) != null ? stack1 : "")
     + "><a href=\""
-    + alias2(lookupProperty(helpers,"url").call(alias1,{"name":"url","hash":{},"data":data,"loc":{"start":{"line":9,"column":64},"end":{"line":9,"column":71}}}))
+    + alias2(lookupProperty(helpers,"url").call(alias1,(depth0 != null ? lookupProperty(depth0,"url") : depth0),{"name":"url","hash":{},"data":data,"loc":{"start":{"line":9,"column":64},"end":{"line":9,"column":80}}}))
     + "\">"
     + alias2(container.lambda((depth0 != null ? lookupProperty(depth0,"label") : depth0), depth0))
     + "</a></li>\n";

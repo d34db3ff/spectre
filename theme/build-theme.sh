@@ -25,3 +25,5 @@ for partial in "${file_dir}/partials/*"; do
 done
 
 echo -n $tail >> $dst_file
+
+echo "compiled template: $dst_file" 
