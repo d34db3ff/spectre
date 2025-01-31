@@ -19,7 +19,6 @@
   "dependencies": {
     "asciidoctor": "^3.0.4",
     "handlebars": "^4.7.8",
-    "lodash": "^4.17.21",
     "moment": "^2.30.1"
   }
 }

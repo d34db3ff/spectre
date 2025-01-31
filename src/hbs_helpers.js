@@ -1,6 +1,5 @@
 import Handlebars from 'handlebars'
 import moment from 'moment'
-import _ from 'lodash'
 
 export default function () {
   // ===== register helpers ======
@@ -9,9 +8,10 @@ export default function () {
   );
   Handlebars.registerHelper('date', (...attrs) => {
     const options = attrs.pop();
+    
     let date;
-    if (!_.isEmpty(attrs)){
-      date = attrs.shift();
+    if ('ctime' in options.hash) {
+      date = options.hash['ctime'];
     } else {
       date = Date();
     }
@@ -25,6 +25,6 @@ export default function () {
     url.startsWith('/') ? url : "/".concat(url)
   );
   Handlebars.registerHelper('page_url', (page) =>
-    (page_url == 1) ? '/' : '/page/'.concat(page)
+    (page == 1) ? '/' : '/page/'.concat(page)
   );
 }

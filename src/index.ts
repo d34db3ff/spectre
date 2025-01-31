@@ -10,7 +10,7 @@ interface Env {
 }
 
 async function router(path: string, data: KVNamespace, settings: KVNamespace) {
-	if (path === '/' || path.startsWith('/page/')) {
+	if (path.startsWith('/page/')) {
 		return handle_index(path, data, settings);
 	} else if (path === '/portal/' || path === '/about/') {
 		// TODO: find a better way to distinguish pages from posts.
@@ -23,16 +23,19 @@ async function router(path: string, data: KVNamespace, settings: KVNamespace) {
 async function handle_index(path: string, data: KVNamespace, settings: KVNamespace) {
 	const site = JSON.parse(await settings.get('site') || '{}');
 	const navigation = JSON.parse(await settings.get("navigation") || '{}');
-	const posts = JSON.parse(await settings.get('posts') || '{}').slice(0, 5);
-	let page_data;
-	if (path === '/') {
-		page_data = JSON.parse(await data.get(path) || '{}');
-	} else {
-		page_data = JSON.parse(await data.get(path) || '{}');
-		page_data.body_class = '';
-		// TODO: handle pagination
+	let posts = JSON.parse(await settings.get('posts') || '{}');
+	const current_page = parseInt(path.split('/')[2]);
+	const total_pages = Math.floor((posts.length + 4) / 5);
+	
+	if (current_page > total_pages) {
+		throw new Error('not found.');
 	}
-	return Handlebars.templates['index.hbs']({ "page": page_data.page, posts, site, navigation });
+	
+	let paged_posts = posts.reverse().slice(current_page * 5 - 5, current_page * 5);
+	const pagination = { current_page, total_pages, prev: current_page - 1, next: (current_page === total_pages) ? 0 : current_page + 1 };
+	let page_data = { meta_title: site.title, body_class: (path === '/page/1/') ? 'home-template' : 'paged' };
+
+	return Handlebars.templates['index.hbs']({ "page": page_data, paged_posts, site, navigation, pagination });
 }
 
 async function handle_page(path: string, data: KVNamespace, settings: KVNamespace) {
@@ -49,6 +52,11 @@ async function handle_post(path: string, data: KVNamespace, settings: KVNamespac
 	const site = JSON.parse(await settings.get("site") || '{}');
 	const navigation = JSON.parse(await settings.get("navigation") || '{}');
 	const page_data = JSON.parse(await data.get(path) || '{}');
+
+	if (Object.keys(page_data).length == 0) {
+		throw new Error('not found.');
+	}
+
 	const post = page_data.post;
 	const page = page_data.page;
 
@@ -56,6 +64,9 @@ async function handle_post(path: string, data: KVNamespace, settings: KVNamespac
 }
 
 function normalize(path: string) {
+	if (path === '/') {
+		path = '/page/1/'
+	}
 	return path.endsWith('/') ? path : path.concat('/')
 }
 

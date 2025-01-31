@@ -28,24 +28,25 @@
             </nav>
         </header>
 
+        {{#with post}}
         <main class="content" role="main">
-            <article class="{{post.post_class}}">
+            <article class="{{post_class}}">
 
                 <header class="post-header">
-                    <h1 class="post-title">{{post.title}}</h1>
+                    <h1 class="post-title">{{title}}</h1>
                     <section class="post-meta">
-                        <time class="post-date" datetime="{{date format='YYYY-MM-DD'}}">{{date format="YYYY/MM/DD"}}</time>
+                        <time class="post-date" datetime="{{date ctime=published_at format='YYYY-MM-DD'}}">{{date ctime=published_at format="YYYY/MM/DD"}}</time>
                     </section>
                 </header>
 
                 <section class="post-content">
-                    {{{post.html}}}
+                    {{{html}}}
                 </section>
 
                 <footer class="post-footer">
                     <!-- The Ultimate Comment System from Web 5.0 -->
                     <div id="comment">
-                       <a href="mailto:the@stella.observer?subject=[COMMENT] {{post.title}}">
+                       <a href="mailto:the@stella.observer?subject=[COMMENT] {{title}}">
                            <button type="button" class="subscribe-button">&gt; Send Me a Comment</button>
                        </a> 
                     </div>
@@ -53,10 +54,11 @@
                 </footer>
             </article>
         </main>
+        {{/with}}
 
         <footer class="site-footer clearfix">
             <section class="copyright"><a href="{{site.url}}">{{site.title}}</a> &copy; {{date format="YYYY"}}</section>
-	    <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a> &amp; Modified by Minty </br> <noscript>This website is JavaScript-Free™ </noscript></section>
+	    <section class="poweredby">Proudly published with <a href="https://github.com/d34db3ff/spectre">spectre</a> </br> <noscript>This website is JavaScript-Free™ </noscript></section>
         </footer>
 
     </div>
