@@ -27,8 +27,8 @@ async function handle_index(path: string, data: KVNamespace, settings: KVNamespa
 	const current_page = parseInt(path.split('/')[2]);
 	const total_pages = Math.floor((posts.length + 4) / 5);
 	
-	if (current_page > total_pages) {
-		throw new Error('not found.');
+	if (isNaN(current_page) || !Number.isInteger(current_page) || Math.sign(current_page) != 1 || current_page > total_pages) {
+		throw new Error('index out of range.');
 	}
 	
 	let paged_posts = posts.reverse().slice(current_page * 5 - 5, current_page * 5);
