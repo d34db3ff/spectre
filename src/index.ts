@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 // import asciidoctor from 'asciidoctor'
-import init_hbs from './hbs_tpl.compiled'
-import register_helpers from './hbs_helpers'
+import init_hbs from './hbs_tpl.compiled';
+import register_helpers from './hbs_helpers';
 // const Asciidoctor = asciidoctor()
 
 interface Env {
@@ -21,27 +21,35 @@ async function router(path: string, data: KVNamespace, settings: KVNamespace) {
 }
 
 async function handle_index(path: string, data: KVNamespace, settings: KVNamespace) {
-	const site = JSON.parse(await settings.get('site') || '{}');
-	const navigation = JSON.parse(await settings.get("navigation") || '{}');
-	let posts = JSON.parse(await settings.get('posts') || '{}');
+	const [setting_site, setting_nav, setting_posts] = await Promise.all([
+		settings.get('site'),
+		settings.get('navigation'),
+		settings.get('posts'),
+	]);
+	const site = JSON.parse(setting_site || '{}');
+	const navigation = JSON.parse(setting_nav || '{}');
+	let posts = JSON.parse(setting_posts || '{}');
+
 	const current_page = parseInt(path.split('/')[2]);
 	const total_pages = Math.floor((posts.length + 4) / 5);
-	
+
 	if (isNaN(current_page) || !Number.isInteger(current_page) || Math.sign(current_page) != 1 || current_page > total_pages) {
 		throw new Error('index out of range.');
 	}
-	
-	let paged_posts = posts.reverse().slice(current_page * 5 - 5, current_page * 5);
-	const pagination = { current_page, total_pages, prev: current_page - 1, next: (current_page === total_pages) ? 0 : current_page + 1 };
-	let page_data = { meta_title: site.title, body_class: (path === '/page/1/') ? 'home-template' : 'paged' };
 
-	return Handlebars.templates['index.hbs']({ "page": page_data, paged_posts, site, navigation, pagination });
+	let paged_posts = posts.reverse().slice(current_page * 5 - 5, current_page * 5);
+	const pagination = { current_page, total_pages, prev: current_page - 1, next: current_page === total_pages ? 0 : current_page + 1 };
+	let page_data = { meta_title: site.title, body_class: path === '/page/1/' ? 'home-template' : 'paged' };
+
+	return Handlebars.templates['index.hbs']({ page: page_data, paged_posts, site, navigation, pagination });
 }
 
 async function handle_page(path: string, data: KVNamespace, settings: KVNamespace) {
-	const site = JSON.parse(await settings.get('site') || '{}');
-	const navigation = JSON.parse(await settings.get('navigation') || '{}');
-	const page_data = JSON.parse(await data.get(path) || '{}');
+	const [setting_site, setting_nav, data_path] = await Promise.all([settings.get('site'), settings.get('navigation'), data.get(path)]);
+	const site = JSON.parse(setting_site || '{}');
+	const navigation = JSON.parse(setting_nav || '{}');
+	const page_data = JSON.parse(data_path || '{}');
+
 	const post = page_data.post;
 	const page = page_data.page;
 
@@ -49,9 +57,10 @@ async function handle_page(path: string, data: KVNamespace, settings: KVNamespac
 }
 
 async function handle_post(path: string, data: KVNamespace, settings: KVNamespace) {
-	const site = JSON.parse(await settings.get("site") || '{}');
-	const navigation = JSON.parse(await settings.get("navigation") || '{}');
-	const page_data = JSON.parse(await data.get(path) || '{}');
+	const [setting_site, setting_nav, data_path] = await Promise.all([settings.get('site'), settings.get('navigation'), data.get(path)]);
+	const site = JSON.parse(setting_site || '{}');
+	const navigation = JSON.parse(setting_nav || '{}');
+	const page_data = JSON.parse(data_path || '{}');
 
 	if (Object.keys(page_data).length == 0) {
 		throw new Error('not found.');
@@ -65,9 +74,9 @@ async function handle_post(path: string, data: KVNamespace, settings: KVNamespac
 
 function normalize(path: string) {
 	if (path === '/') {
-		path = '/page/1/'
+		path = '/page/1/';
 	}
-	return path.endsWith('/') ? path : path.concat('/')
+	return path.endsWith('/') ? path : path.concat('/');
 }
 
 init_hbs();
@@ -78,8 +87,8 @@ export default {
 		let { pathname } = new URL(request.url);
 		return new Response(await router(normalize(pathname), env.DATA, env.SETTINGS), {
 			headers: {
-				"content-type": "text/html;charset=UTF-8"
-			}
+				'content-type': 'text/html;charset=UTF-8',
+			},
 		});
-	}
+	},
 } satisfies ExportedHandler<Env>;
